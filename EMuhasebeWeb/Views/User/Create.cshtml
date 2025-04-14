@@ -1,0 +1,31 @@
+﻿@model User
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+
+<h2>@Localizer["AddUser"]</h2>
+
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label>@Localizer["FullName"]</label>
+        <input asp-for="FullName" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>@Localizer["Email"]</label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>@Localizer["Password"]</label>
+        <input asp-for="Password" class="form-control" type="password" />
+    </div>
+
+    <div class="mb-3">
+        <label>@Localizer["Role"]</label>
+        <select asp-for="RoleID" class="form-control"
+                asp-items='@(new SelectList(ViewBag.Roles, "RoleID", "Name"))'>
+            <option value="">@Localizer["SelectRole"]</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">@Localizer["Save"]</button>
+</form>

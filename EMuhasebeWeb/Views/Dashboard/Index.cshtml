@@ -1,0 +1,55 @@
+﻿@model EMuhasebeWeb.Models.DashboardViewModel
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["DashboardTitle"];
+}
+
+<h2>@Localizer["DashboardTitle"]</h2>
+
+<div class="row g-4">
+    <div class="col-md-3">
+        <div class="card bg-primary text-white">
+            <div class="card-body">
+                <h5>@Localizer["Users"]</h5>
+                <h3>@Model.UserCount</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-success text-white">
+            <div class="card-body">
+                <h5>@Localizer["Customers"]</h5>
+                <h3>@Model.CustomerCount</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-warning text-dark">
+            <div class="card-body">
+                <h5>@Localizer["Invoices"]</h5>
+                <h3>@Model.InvoiceCount</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-info text-white">
+            <div class="card-body">
+                <h5>@Localizer["TodayIncome"]</h5>
+                <h3>@Model.TodayIncome ₺</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-danger text-white">
+            <div class="card-body">
+                <h5>@Localizer["TodayExpense"]</h5>
+                <h3>@Model.TodayExpense ₺</h3>
+            </div>
+        </div>
+    </div>
+</div>

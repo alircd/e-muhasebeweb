@@ -22,394 +22,381 @@ namespace EMuhasebeWeb.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("EMuhasebeWeb.Models.Fatura", b =>
+            modelBuilder.Entity("EMuhasebeWeb.Models.Category", b =>
                 {
-                    b.Property<int>("FaturaID")
+                    b.Property<int>("CategoryID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FaturaID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryID"));
 
-                    b.Property<int?>("KullaniciID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MusteriID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Tarih")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("ToplamTutar")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("FaturaID");
-
-                    b.HasIndex("KullaniciID");
-
-                    b.HasIndex("MusteriID");
-
-                    b.ToTable("Faturalar");
-                });
-
-            modelBuilder.Entity("EMuhasebeWeb.Models.FaturaDetay", b =>
-                {
-                    b.Property<int>("FaturaDetayID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FaturaDetayID"));
-
-                    b.Property<int>("Adet")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("BirimFiyat")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("FaturaID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UrunID")
-                        .HasColumnType("int");
-
-                    b.HasKey("FaturaDetayID");
-
-                    b.HasIndex("FaturaID");
-
-                    b.HasIndex("UrunID");
-
-                    b.ToTable("FaturaDetaylari");
-                });
-
-            modelBuilder.Entity("EMuhasebeWeb.Models.Firma", b =>
-                {
-                    b.Property<int>("FirmaID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FirmaID"));
-
-                    b.Property<string>("Adres")
+                    b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CategoryID");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("EMuhasebeWeb.Models.Company", b =>
+                {
+                    b.Property<int>("CompanyID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CompanyID"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LogoPath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TaxNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CompanyID");
+
+                    b.ToTable("Companies");
+                });
+
+            modelBuilder.Entity("EMuhasebeWeb.Models.Customer", b =>
+                {
+                    b.Property<int>("CustomerID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerID"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LogoUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Telefon")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Unvan")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("VergiNo")
+                    b.Property<string>("FullName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("FirmaID");
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("Firmalar");
+                    b.HasKey("CustomerID");
+
+                    b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("EMuhasebeWeb.Models.GelirGider", b =>
+            modelBuilder.Entity("EMuhasebeWeb.Models.IncomeExpense", b =>
                 {
-                    b.Property<int>("GelirGiderID")
+                    b.Property<int>("IncomeExpenseID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GelirGiderID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IncomeExpenseID"));
 
-                    b.Property<string>("Aciklama")
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsGelir")
+                    b.Property<bool>("IsIncome")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("KullaniciID")
+                    b.HasKey("IncomeExpenseID");
+
+                    b.ToTable("IncomeExpenses");
+                });
+
+            modelBuilder.Entity("EMuhasebeWeb.Models.Invoice", b =>
+                {
+                    b.Property<int>("InvoiceID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Tarih")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InvoiceID"));
+
+                    b.Property<int>("CustomerID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("Tutar")
-                        .HasPrecision(18, 2)
+                    b.Property<decimal>("TotalAmount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("GelirGiderID");
+                    b.HasKey("InvoiceID");
 
-                    b.HasIndex("KullaniciID");
+                    b.HasIndex("CustomerID");
 
-                    b.ToTable("GelirGiderler");
+                    b.ToTable("Invoices");
                 });
 
-            modelBuilder.Entity("EMuhasebeWeb.Models.Kategori", b =>
+            modelBuilder.Entity("EMuhasebeWeb.Models.InvoiceDetail", b =>
                 {
-                    b.Property<int>("KategoriID")
+                    b.Property<int>("InvoiceDetailID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("KategoriID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InvoiceDetailID"));
 
-                    b.Property<string>("Aciklama")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("InvoiceID")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Ad")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
 
-                    b.HasKey("KategoriID");
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
 
-                    b.ToTable("Kategoriler");
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("InvoiceDetailID");
+
+                    b.HasIndex("InvoiceID");
+
+                    b.HasIndex("ProductID");
+
+                    b.ToTable("InvoiceDetails");
                 });
 
-            modelBuilder.Entity("EMuhasebeWeb.Models.Kullanici", b =>
+            modelBuilder.Entity("EMuhasebeWeb.Models.Payment", b =>
                 {
-                    b.Property<int>("KullaniciID")
+                    b.Property<int>("PaymentID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("KullaniciID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PaymentID"));
 
-                    b.Property<string>("AdSoyad")
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("CustomerID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("PaymentID");
+
+                    b.HasIndex("CustomerID");
+
+                    b.ToTable("Payments");
+                });
+
+            modelBuilder.Entity("EMuhasebeWeb.Models.Product", b =>
+                {
+                    b.Property<int>("ProductID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductID"));
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Stock")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductID");
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("Role", b =>
+                {
+                    b.Property<int>("RoleID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleID"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RoleID");
+
+                    b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            RoleID = 1,
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            RoleID = 2,
+                            Name = "Staff"
+                        });
+                });
+
+            modelBuilder.Entity("User", b =>
+                {
+                    b.Property<int>("UserID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserID"));
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RolID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Sifre")
+                    b.Property<string>("FullName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("KullaniciID");
-
-                    b.HasIndex("RolID");
-
-                    b.ToTable("Kullanicilar");
-                });
-
-            modelBuilder.Entity("EMuhasebeWeb.Models.Musteri", b =>
-                {
-                    b.Property<int>("MusteriID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MusteriID"));
-
-                    b.Property<string>("AdSoyad")
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Adres")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("RoleID")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("UserID");
 
-                    b.Property<string>("Telefon")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasIndex("RoleID");
 
-                    b.HasKey("MusteriID");
+                    b.ToTable("Users");
 
-                    b.ToTable("Musteriler");
+                    b.HasData(
+                        new
+                        {
+                            UserID = 1,
+                            Email = "admin@example.com",
+                            FullName = "Ali Yönetici",
+                            Password = "1234",
+                            RoleID = 1
+                        },
+                        new
+                        {
+                            UserID = 2,
+                            Email = "zeynep@site.com",
+                            FullName = "Zeynep Personel",
+                            Password = "123",
+                            RoleID = 2
+                        },
+                        new
+                        {
+                            UserID = 3,
+                            Email = "mehmet@site.com",
+                            FullName = "Mehmet Personel",
+                            Password = "123",
+                            RoleID = 2
+                        },
+                        new
+                        {
+                            UserID = 4,
+                            Email = "ayse@site.com",
+                            FullName = "Ayşe Personel",
+                            Password = "123",
+                            RoleID = 2
+                        },
+                        new
+                        {
+                            UserID = 5,
+                            Email = "hasan@site.com",
+                            FullName = "Hasan Admin",
+                            Password = "admin",
+                            RoleID = 1
+                        });
                 });
 
-            modelBuilder.Entity("EMuhasebeWeb.Models.Odeme", b =>
+            modelBuilder.Entity("EMuhasebeWeb.Models.Invoice", b =>
                 {
-                    b.Property<int>("OdemeID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OdemeID"));
-
-                    b.Property<string>("Aciklama")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("FaturaID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MusteriID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Tarih")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("Tutar")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("OdemeID");
-
-                    b.HasIndex("FaturaID");
-
-                    b.HasIndex("MusteriID");
-
-                    b.ToTable("Odemeler");
-                });
-
-            modelBuilder.Entity("EMuhasebeWeb.Models.Rol", b =>
-                {
-                    b.Property<int>("RolID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RolID"));
-
-                    b.Property<string>("Ad")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("RolID");
-
-                    b.ToTable("Roller");
-                });
-
-            modelBuilder.Entity("EMuhasebeWeb.Models.Urun", b =>
-                {
-                    b.Property<int>("UrunID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UrunID"));
-
-                    b.Property<string>("Ad")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Fiyat")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int?>("KategoriID")
-                        .HasColumnType("int");
-
-                    b.HasKey("UrunID");
-
-                    b.HasIndex("KategoriID");
-
-                    b.ToTable("Urunler");
-                });
-
-            modelBuilder.Entity("EMuhasebeWeb.Models.Fatura", b =>
-                {
-                    b.HasOne("EMuhasebeWeb.Models.Kullanici", "Kullanici")
-                        .WithMany("Faturalar")
-                        .HasForeignKey("KullaniciID");
-
-                    b.HasOne("EMuhasebeWeb.Models.Musteri", "Musteri")
-                        .WithMany("Faturalar")
-                        .HasForeignKey("MusteriID")
+                    b.HasOne("EMuhasebeWeb.Models.Customer", "Customer")
+                        .WithMany("Invoices")
+                        .HasForeignKey("CustomerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Kullanici");
-
-                    b.Navigation("Musteri");
+                    b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("EMuhasebeWeb.Models.FaturaDetay", b =>
+            modelBuilder.Entity("EMuhasebeWeb.Models.InvoiceDetail", b =>
                 {
-                    b.HasOne("EMuhasebeWeb.Models.Fatura", "Fatura")
-                        .WithMany("FaturaDetaylari")
-                        .HasForeignKey("FaturaID")
+                    b.HasOne("EMuhasebeWeb.Models.Invoice", "Invoice")
+                        .WithMany("InvoiceDetails")
+                        .HasForeignKey("InvoiceID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EMuhasebeWeb.Models.Urun", "Urun")
-                        .WithMany("FaturaDetaylari")
-                        .HasForeignKey("UrunID")
+                    b.HasOne("EMuhasebeWeb.Models.Product", "Product")
+                        .WithMany("InvoiceDetails")
+                        .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Fatura");
+                    b.Navigation("Invoice");
 
-                    b.Navigation("Urun");
+                    b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("EMuhasebeWeb.Models.GelirGider", b =>
+            modelBuilder.Entity("EMuhasebeWeb.Models.Payment", b =>
                 {
-                    b.HasOne("EMuhasebeWeb.Models.Kullanici", "Kullanici")
+                    b.HasOne("EMuhasebeWeb.Models.Customer", "Customer")
                         .WithMany()
-                        .HasForeignKey("KullaniciID");
-
-                    b.Navigation("Kullanici");
-                });
-
-            modelBuilder.Entity("EMuhasebeWeb.Models.Kullanici", b =>
-                {
-                    b.HasOne("EMuhasebeWeb.Models.Rol", "Rol")
-                        .WithMany("Kullanicilar")
-                        .HasForeignKey("RolID")
+                        .HasForeignKey("CustomerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Rol");
+                    b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("EMuhasebeWeb.Models.Odeme", b =>
+            modelBuilder.Entity("User", b =>
                 {
-                    b.HasOne("EMuhasebeWeb.Models.Fatura", "Fatura")
-                        .WithMany()
-                        .HasForeignKey("FaturaID");
-
-                    b.HasOne("EMuhasebeWeb.Models.Musteri", "Musteri")
-                        .WithMany("Odemeler")
-                        .HasForeignKey("MusteriID")
+                    b.HasOne("Role", "Role")
+                        .WithMany("Users")
+                        .HasForeignKey("RoleID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Fatura");
-
-                    b.Navigation("Musteri");
+                    b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("EMuhasebeWeb.Models.Urun", b =>
+            modelBuilder.Entity("EMuhasebeWeb.Models.Customer", b =>
                 {
-                    b.HasOne("EMuhasebeWeb.Models.Kategori", "Kategori")
-                        .WithMany("Urunler")
-                        .HasForeignKey("KategoriID");
-
-                    b.Navigation("Kategori");
+                    b.Navigation("Invoices");
                 });
 
-            modelBuilder.Entity("EMuhasebeWeb.Models.Fatura", b =>
+            modelBuilder.Entity("EMuhasebeWeb.Models.Invoice", b =>
                 {
-                    b.Navigation("FaturaDetaylari");
+                    b.Navigation("InvoiceDetails");
                 });
 
-            modelBuilder.Entity("EMuhasebeWeb.Models.Kategori", b =>
+            modelBuilder.Entity("EMuhasebeWeb.Models.Product", b =>
                 {
-                    b.Navigation("Urunler");
+                    b.Navigation("InvoiceDetails");
                 });
 
-            modelBuilder.Entity("EMuhasebeWeb.Models.Kullanici", b =>
+            modelBuilder.Entity("Role", b =>
                 {
-                    b.Navigation("Faturalar");
-                });
-
-            modelBuilder.Entity("EMuhasebeWeb.Models.Musteri", b =>
-                {
-                    b.Navigation("Faturalar");
-
-                    b.Navigation("Odemeler");
-                });
-
-            modelBuilder.Entity("EMuhasebeWeb.Models.Rol", b =>
-                {
-                    b.Navigation("Kullanicilar");
-                });
-
-            modelBuilder.Entity("EMuhasebeWeb.Models.Urun", b =>
-                {
-                    b.Navigation("FaturaDetaylari");
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

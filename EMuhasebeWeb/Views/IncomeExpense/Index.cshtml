@@ -1,0 +1,36 @@
+﻿@model List<IncomeExpense>
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["IncomeExpense"];
+}
+
+<h2>@Localizer["IncomeExpense"]</h2>
+<a asp-action="Create" class="btn btn-success mb-2">@Localizer["AddRecord"]</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>@Localizer["Date"]</th>
+            <th>@Localizer["Description"]</th>
+            <th>@Localizer["Amount"]</th>
+            <th>@Localizer["Type"]</th>
+            <th>@Localizer["Actions"]</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Date.ToString("yyyy-MM-dd")</td>
+                <td>@item.Description</td>
+                <td>@item.Amount ₺</td>
+                <td>@(item.IsIncome ? Localizer["Income"] : Localizer["Expense"])</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.IncomeExpenseID" class="btn btn-warning btn-sm">@Localizer["Edit"]</a>
+                    <a asp-action="Delete" asp-route-id="@item.IncomeExpenseID" class="btn btn-danger btn-sm">@Localizer["Delete"]</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

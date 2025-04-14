@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, ...</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, ...</value>
+	</resheader>
+	<data name="Invoices" xml:space="preserve"><value>Facturen</value></data>
+	<data name="AddInvoice" xml:space="preserve"><value>Nieuwe Factuur</value></data>
+	<data name="Date" xml:space="preserve"><value>Datum</value></data>
+	<data name="Customer" xml:space="preserve"><value>Klant</value></data>
+	<data name="TotalAmount" xml:space="preserve"><value>Totaalbedrag</value></data>
+	<data name="Actions" xml:space="preserve"><value>Acties</value></data>
+	<data name="Delete" xml:space="preserve"><value>Verwijderen</value></data>
+</root>

@@ -1,0 +1,27 @@
+﻿@model Invoice
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["AddInvoice"];
+    var customers = ViewBag.Customers as List<Customer>;
+}
+
+<h2>@Localizer["AddInvoice"]</h2>
+
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label>@Localizer["Customer"]</label>
+        <select asp-for="CustomerID" class="form-control" asp-items="@(new SelectList(customers, "CustomerID", "FullName"))">
+            <option value="">@Localizer["SelectCustomer"]</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label>@Localizer["Date"]</label>
+        <input asp-for="Date" type="date" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label>@Localizer["TotalAmount"]</label>
+        <input asp-for="TotalAmount" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">@Localizer["Save"]</button>
+</form>

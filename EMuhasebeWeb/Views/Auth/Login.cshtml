@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Giriş";
+}
+
+<h2>Giriş Yap</h2>
+
+<form method="post" asp-controller="Auth" asp-action="Login">
+    <div>
+        <label>E-posta:</label>
+        <input type="email" name="email" required />
+    </div>
+    <div>
+        <label>Şifre:</label>
+        <input type="password" name="sifre" required />
+    </div>
+    <div>
+        <button type="submit">Giriş</button>
+    </div>
+
+    @if (ViewBag.Hata != null)
+    {
+        <p style="color:red">@ViewBag.Hata</p>
+    }
+</form>

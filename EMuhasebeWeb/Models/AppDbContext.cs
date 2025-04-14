@@ -8,15 +8,35 @@ namespace EMuhasebeWeb.Models
         {
         }
 
-        public DbSet<Kullanici> Kullanicilar { get; set; }
-        public DbSet<Rol> Roller { get; set; }
-        public DbSet<Musteri> Musteriler { get; set; }
-        public DbSet<Urun> Urunler { get; set; }
-        public DbSet<Fatura> Faturalar { get; set; }
-        public DbSet<FaturaDetay> FaturaDetaylari { get; set; }
-        public DbSet<Odeme> Odemeler { get; set; }
-        public DbSet<GelirGider> GelirGiderler { get; set; }
-        public DbSet<Kategori> Kategoriler { get; set; }
-        public DbSet<Firma> Firmalar { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<InvoiceDetail> InvoiceDetails { get; set; }
+        public DbSet<Payment> Payments { get; set; }
+        public DbSet<IncomeExpense> IncomeExpenses { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Company> Companies { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Role Seed
+            modelBuilder.Entity<Role>().HasData(
+                new Role { RoleID = 1, Name = "Admin" },
+                new Role { RoleID = 2, Name = "Staff" }
+            );
+
+            // User Seed
+            modelBuilder.Entity<User>().HasData(
+                new User { UserID = 1, FullName = "Ali Yönetici", Email = "admin@example.com", Password = "1234", RoleID = 1 },
+                new User { UserID = 2, FullName = "Zeynep Personel", Email = "zeynep@site.com", Password = "123", RoleID = 2 },
+                new User { UserID = 3, FullName = "Mehmet Personel", Email = "mehmet@site.com", Password = "123", RoleID = 2 },
+                new User { UserID = 4, FullName = "Ayşe Personel", Email = "ayse@site.com", Password = "123", RoleID = 2 },
+                new User { UserID = 5, FullName = "Hasan Admin", Email = "hasan@site.com", Password = "admin", RoleID = 1 }
+            );
+        }
     }
 }

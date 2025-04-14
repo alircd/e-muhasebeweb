@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, ...</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, ...</value>
+	</resheader>
+	<data name="Products" xml:space="preserve"><value>Ürünler</value></data>
+	<data name="AddProduct" xml:space="preserve"><value>Yeni Ürün</value></data>
+	<data name="Name" xml:space="preserve"><value>Ürün Adı</value></data>
+	<data name="Price" xml:space="preserve"><value>Fiyat</value></data>
+	<data name="Stock" xml:space="preserve"><value>Stok</value></data>
+	<data name="Actions" xml:space="preserve"><value>İşlemler</value></data>
+	<data name="Delete" xml:space="preserve"><value>Sil</value></data>
+</root>

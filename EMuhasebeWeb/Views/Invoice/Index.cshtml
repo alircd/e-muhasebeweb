@@ -1,0 +1,33 @@
+﻿@model List<Invoice>
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["Invoices"];
+}
+
+<h2>@Localizer["Invoices"]</h2>
+<a asp-action="Create" class="btn btn-success mb-2">@Localizer["AddInvoice"]</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>@Localizer["Customer"]</th>
+            <th>@Localizer["Date"]</th>
+            <th>@Localizer["TotalAmount"]</th>
+            <th>@Localizer["Actions"]</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var invoice in Model)
+        {
+            <tr>
+                <td>@invoice.Customer?.FullName</td>
+                <td>@invoice.Date.ToString("yyyy-MM-dd")</td>
+                <td>@invoice.TotalAmount ₺</td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@invoice.InvoiceID" class="btn btn-danger btn-sm">@Localizer["Delete"]</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

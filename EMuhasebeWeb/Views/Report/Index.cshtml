@@ -1,0 +1,76 @@
+﻿@model List<IncomeExpense>
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["Reports"];
+}
+
+<h2>@Localizer["Reports"]</h2>
+
+<form method="get" class="row g-3 mb-4">
+    <div class="col-md-4">
+        <label class="form-label">@Localizer["StartDate"]</label>
+        <input type="date" name="startDate" class="form-control" value="@ViewBag.StartDate" />
+    </div>
+    <div class="col-md-4">
+        <label class="form-label">@Localizer["EndDate"]</label>
+        <input type="date" name="endDate" class="form-control" value="@ViewBag.EndDate" />
+    </div>
+    <div class="col-md-4 d-flex align-items-end">
+        <button type="submit" class="btn btn-primary w-100">@Localizer["ApplyFilter"]</button>
+    </div>
+</form>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-6">
+        <div class="card text-white bg-success shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">@Localizer["TotalIncome"]</h5>
+                <h3>@ViewBag.TotalIncome ₺</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card text-white bg-danger shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">@Localizer["TotalExpense"]</h5>
+                <h3>@ViewBag.TotalExpense ₺</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.Any())
+{
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>@Localizer["Date"]</th>
+                <th>@Localizer["Description"]</th>
+                <th>@Localizer["Amount"]</th>
+                <th>@Localizer["Type"]</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Date.ToString("yyyy-MM-dd")</td>
+                    <td>@item.Description</td>
+                    <td>@item.Amount ₺</td>
+                    <td>@(item.IsIncome ? Localizer["Income"] : Localizer["Expense"])</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <form method="post" asp-action="ExportToPdf">
+        <input type="hidden" name="startDate" value="@ViewBag.StartDate" />
+        <input type="hidden" name="endDate" value="@ViewBag.EndDate" />
+        <button type="submit" class="btn btn-danger mt-3">@Localizer["DownloadPDF"]</button>
+    </form>
+}
+else
+{
+    <div class="alert alert-warning">@Localizer["NoDataFound"]</div>
+}

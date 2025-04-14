@@ -1,0 +1,31 @@
+﻿@model IncomeExpense
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["AddRecord"];
+}
+
+<h2>@Localizer["AddRecord"]</h2>
+
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label>@Localizer["Date"]</label>
+        <input asp-for="Date" type="date" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label>@Localizer["Description"]</label>
+        <input asp-for="Description" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label>@Localizer["Amount"]</label>
+        <input asp-for="Amount" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label>@Localizer["Type"]</label>
+        <select asp-for="IsIncome" class="form-control">
+            <option value="true">@Localizer["Income"]</option>
+            <option value="false">@Localizer["Expense"]</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">@Localizer["Save"]</button>
+</form>

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, ...</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, ...</value>
+	</resheader>
+	<data name="DashboardTitle" xml:space="preserve">
+    <value>Yönetim Paneli</value>
+  </data>
+	<data name="Customers" xml:space="preserve">
+    <value>Müşteriler</value>
+  </data>
+	<data name="Products" xml:space="preserve">
+    <value>Ürünler</value>
+  </data>
+	<data name="Invoices" xml:space="preserve">
+    <value>Faturalar</value>
+  </data>
+	<data name="IncomeExpense" xml:space="preserve">
+    <value>Gelir / Gider</value>
+  </data>
+	<data name="Reports" xml:space="preserve">
+    <value>Raporlar</value>
+  </data>
+	<data name="Logout" xml:space="preserve">
+    <value>Çıkış Yap</value>
+  </data>
+	<data name="Language" xml:space="preserve">
+    <value>Dil</value>
+  </data>
+</root>

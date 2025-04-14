@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, ...</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, ...</value>
+	</resheader>
+	<data name="Description" xml:space="preserve"><value>Açıklama</value></data>
+	<data name="Amount" xml:space="preserve"><value>Tutar</value></data>
+	<data name="Date" xml:space="preserve"><value>Tarih</value></data>
+	<data name="Type" xml:space="preserve"><value>Tür</value></data>
+	<data name="Income" xml:space="preserve"><value>Gelir</value></data>
+	<data name="Expense" xml:space="preserve"><value>Gider</value></data>
+	<data name="Save" xml:space="preserve"><value>Kaydet</value></data>
+</root>

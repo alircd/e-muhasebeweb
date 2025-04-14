@@ -1,0 +1,29 @@
+﻿@model Customer
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["EditCustomer"];
+}
+
+<h2>@Localizer["EditCustomer"]</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="CustomerID" />
+    <div class="mb-3">
+        <label class="form-label">@Localizer["FullName"]</label>
+        <input asp-for="FullName" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">@Localizer["Email"]</label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">@Localizer["Phone"]</label>
+        <input asp-for="Phone" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">@Localizer["Address"]</label>
+        <textarea asp-for="Address" class="form-control"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">@Localizer["Update"]</button>
+</form>
