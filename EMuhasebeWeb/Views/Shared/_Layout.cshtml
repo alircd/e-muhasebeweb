@@ -3,7 +3,7 @@
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
 
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="@System.Threading.Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
@@ -61,7 +61,14 @@
                 }
 
                 <div class="text-center mt-4">
-                    <a href="?culture=tr">🇹🇷 Türkçe</a> | <a href="?culture=nl">🇳🇱 Nederlands</a>
+                    <form asp-controller="Language" asp-action="SetLanguage" method="post" class="d-inline">
+                        <input type="hidden" name="culture" value="en" />
+                        <button type="submit" class="btn btn-outline-light btn-sm">🇬🇧 English</button>
+                    </form>
+                    <form asp-controller="Language" asp-action="SetLanguage" method="post" class="d-inline">
+                        <input type="hidden" name="culture" value="nl" />
+                        <button type="submit" class="btn btn-outline-light btn-sm">🇳🇱 Nederlands</button>
+                    </form>
                 </div>
             </div>
 

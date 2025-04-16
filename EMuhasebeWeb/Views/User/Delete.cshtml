@@ -8,10 +8,11 @@
     <ul>
         <li><strong>@Localizer["FullName"]:</strong> @Model.FullName</li>
         <li><strong>@Localizer["Email"]:</strong> @Model.Email</li>
+        <li><strong>@Localizer["Role"]:</strong> @Model.Role?.Name</li>
     </ul>
 </div>
 
-<form asp-action="Delete" method="post">
+<form asp-action="Delete">
     <input type="hidden" asp-for="UserID" />
     <button type="submit" class="btn btn-danger">@Localizer["Delete"]</button>
     <a asp-action="Index" class="btn btn-secondary">@Localizer["Cancel"]</a>

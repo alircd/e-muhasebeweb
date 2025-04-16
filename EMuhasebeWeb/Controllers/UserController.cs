@@ -1,6 +1,9 @@
 ﻿using EMuhasebeWeb.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace EMuhasebeWeb.Controllers
 {
@@ -15,42 +18,44 @@ namespace EMuhasebeWeb.Controllers
 
         public IActionResult Index()
         {
-            var users = _context.Users.Include(x => x.Role).ToList();
+            var users = _context.Users.Include(u => u.Role).ToList();
             return View(users);
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.Roles = _context.Roles.ToList();
+            ViewBag.Roles = new SelectList(_context.Roles, "RoleID", "Name");
             return View();
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(User user)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                ViewBag.Roles = _context.Roles.ToList();
-                TempData["Error"] = "Form bilgileri geçersiz.";
-                return View(user);
+                user.Password = HashPassword(user.Password);
+                _context.Users.Add(user);
+                _context.SaveChanges();
+                TempData["Success"] = "User added successfully.";
+                return RedirectToAction("Index");
             }
-
-            _context.Users.Add(user);
-            _context.SaveChanges();
-            TempData["Success"] = "Kullanıcı başarıyla eklendi.";
-            return RedirectToAction("Index");
+            ViewBag.Roles = new SelectList(_context.Roles, "RoleID", "Name", user.RoleID);
+            TempData["Error"] = "Failed to add user.";
+            return View(user);
         }
 
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            var user = _context.Users.Find(id);
+            var user = _context.Users.Include(u => u.Role).FirstOrDefault(u => u.UserID == id);
             if (user == null) return NotFound();
             return View(user);
         }
 
         [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
             var user = _context.Users.Find(id);
@@ -58,9 +63,18 @@ namespace EMuhasebeWeb.Controllers
             {
                 _context.Users.Remove(user);
                 _context.SaveChanges();
-                TempData["Success"] = "Kullanıcı silindi.";
+                TempData["Success"] = "User deleted successfully.";
             }
             return RedirectToAction("Index");
+        }
+
+        private string HashPassword(string password)
+        {
+            using (var sha256 = SHA256.Create())
+            {
+                var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                return BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
+            }
         }
     }
 }

@@ -13,72 +13,87 @@ namespace EMuhasebeWeb.Controllers
             _context = context;
         }
 
+        // GET: Customer
         public IActionResult Index()
         {
             var customers = _context.Customers.ToList();
             return View(customers);
         }
 
-        [HttpGet]
-        public IActionResult Create() => View();
+        // GET: Customer/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(Customer customer)
         {
-            if (!ModelState.IsValid)
+            if (_context.Customers.Any(x => x.Email == customer.Email))
             {
-                TempData["Error"] = "Form bilgileri geçersiz.";
+                TempData["Error"] = "A customer with this email already exists.";
                 return View(customer);
             }
 
-            _context.Customers.Add(customer);
-            _context.SaveChanges();
-            TempData["Success"] = "Müşteri başarıyla eklendi.";
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _context.Customers.Add(customer);
+                _context.SaveChanges();
+                TempData["Success"] = "Customer added successfully.";
+                return RedirectToAction("Index");
+            }
+
+            TempData["Error"] = "Please check the form again.";
+            return View(customer);
         }
 
-        [HttpGet]
+        // GET: Customer/Edit/5
         public IActionResult Edit(int id)
         {
             var customer = _context.Customers.Find(id);
             if (customer == null)
             {
-                TempData["Error"] = "Düzenlenecek müşteri bulunamadı.";
-                return RedirectToAction("Index");
+                return NotFound();
             }
-
             return View(customer);
         }
 
+        // POST: Customer/Edit/5
         [HttpPost]
-        public IActionResult Edit(Customer customer)
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, Customer customer)
         {
-            if (!ModelState.IsValid)
+            if (id != customer.CustomerID)
             {
-                TempData["Error"] = "Form bilgileri geçersiz.";
-                return View(customer);
+                return NotFound();
             }
 
-            _context.Customers.Update(customer);
-            _context.SaveChanges();
-            TempData["Success"] = "Müşteri bilgisi güncellendi.";
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _context.Update(customer);
+                _context.SaveChanges();
+                TempData["Success"] = "Customer updated successfully.";
+                return RedirectToAction(nameof(Index));
+            }
+            TempData["Error"] = "Failed to update customer.";
+            return View(customer);
         }
 
-        [HttpGet]
+        // GET: Customer/Delete/5
         public IActionResult Delete(int id)
         {
-            var customer = _context.Customers.FirstOrDefault(x => x.CustomerID == id);
+            var customer = _context.Customers.Find(id);
             if (customer == null)
             {
-                TempData["Error"] = "Silinecek müşteri bulunamadı.";
-                return RedirectToAction("Index");
+                return NotFound();
             }
-
             return View(customer);
         }
 
+        // POST: Customer/Delete/5
         [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
             var customer = _context.Customers.Find(id);
@@ -86,14 +101,13 @@ namespace EMuhasebeWeb.Controllers
             {
                 _context.Customers.Remove(customer);
                 _context.SaveChanges();
-                TempData["Success"] = "Müşteri silindi.";
+                TempData["Success"] = "Customer deleted successfully.";
             }
             else
             {
-                TempData["Error"] = "Müşteri bulunamadı.";
+                TempData["Error"] = "Customer not found.";
             }
-
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
     }
 }

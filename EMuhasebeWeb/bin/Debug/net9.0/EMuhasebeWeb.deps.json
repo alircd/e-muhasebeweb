@@ -21,11 +21,11 @@
           "EMuhasebeWeb.dll": {}
         },
         "resources": {
+          "en/EMuhasebeWeb.resources.dll": {
+            "locale": "en"
+          },
           "nl/EMuhasebeWeb.resources.dll": {
             "locale": "nl"
-          },
-          "tr/EMuhasebeWeb.resources.dll": {
-            "locale": "tr"
           }
         }
       },

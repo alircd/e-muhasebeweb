@@ -4,6 +4,7 @@ using EMuhasebeWeb.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EMuhasebeWeb.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250416130022_UpdateSchema_2025")]
+    partial class UpdateSchema_2025
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,6 +82,9 @@ namespace EMuhasebeWeb.Migrations
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -327,7 +333,7 @@ namespace EMuhasebeWeb.Migrations
             modelBuilder.Entity("EMuhasebeWeb.Models.Invoice", b =>
                 {
                     b.HasOne("EMuhasebeWeb.Models.Customer", "Customer")
-                        .WithMany()
+                        .WithMany("Invoices")
                         .HasForeignKey("CustomerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -374,6 +380,11 @@ namespace EMuhasebeWeb.Migrations
                         .IsRequired();
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("EMuhasebeWeb.Models.Customer", b =>
+                {
+                    b.Navigation("Invoices");
                 });
 
             modelBuilder.Entity("EMuhasebeWeb.Models.Invoice", b =>
