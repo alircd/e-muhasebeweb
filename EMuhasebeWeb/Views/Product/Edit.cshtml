@@ -1,25 +1,24 @@
-﻿@model Product
+﻿@model EMuhasebeWeb.Models.Product
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
-
-@{
-    ViewData["Title"] = Localizer["EditProduct"];
-}
 
 <h2>@Localizer["EditProduct"]</h2>
 
 <form asp-action="Edit" method="post">
     <input type="hidden" asp-for="ProductID" />
+
     <div class="mb-3">
-        <label class="form-label">@Localizer["Name"]</label>
+        <label>@Localizer["Name"]</label>
         <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
     </div>
     <div class="mb-3">
-        <label class="form-label">@Localizer["Price"]</label>
+        <label>@Localizer["Price"]</label>
         <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
     </div>
     <div class="mb-3">
-        <label class="form-label">@Localizer["Stock"]</label>
-        <input asp-for="Stock" class="form-control" />
+        <label>@Localizer["Description"]</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
     </div>
-    <button type="submit" class="btn btn-primary">@Localizer["Update"]</button>
+    <button type="submit" class="btn btn-primary">@Localizer["Save"]</button>
 </form>

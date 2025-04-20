@@ -1,0 +1,20 @@
+﻿@model EMuhasebeWeb.Models.InvoiceDetail
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+
+<h2>@Localizer["DeleteInvoiceDetail"]</h2>
+
+<div class="alert alert-warning">
+    <p>@Localizer["DeleteConfirmation"]</p>
+    <ul>
+        <li><strong>@Localizer["Product"]:</strong> @Model.Product?.Name</li>
+        <li><strong>@Localizer["Quantity"]:</strong> @Model.Quantity</li>
+        <li><strong>@Localizer["UnitPrice"]:</strong> @Model.UnitPrice ₺</li>
+        <li><strong>@Localizer["LineTotal"]:</strong> @Model.LineTotal ₺</li>
+    </ul>
+</div>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="InvoiceDetailID" />
+    <button type="submit" class="btn btn-danger">@Localizer["Delete"]</button>
+    <a asp-action="Details" asp-controller="Invoice" asp-route-id="@Model.InvoiceID" class="btn btn-secondary">@Localizer["Cancel"]</a>
+</form>

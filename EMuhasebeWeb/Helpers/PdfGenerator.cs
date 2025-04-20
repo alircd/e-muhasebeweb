@@ -3,28 +3,35 @@ using DinkToPdf.Contracts;
 
 namespace EMuhasebeWeb.Helpers
 {
-    public static class PdfGenerator
+    public class PdfGenerator
     {
-        public static byte[] GeneratePdfFromHtml(string html)
-        {
-            var converter = new SynchronizedConverter(new PdfTools());
+        private readonly IConverter _converter;
 
-            var doc = new HtmlToPdfDocument()
+        public PdfGenerator(IConverter converter)
+        {
+            _converter = converter;
+        }
+
+        public byte[] GeneratePdfFromHtml(string htmlContent)
+        {
+            var document = new HtmlToPdfDocument()
             {
-                GlobalSettings = {
-                    PaperSize = PaperKind.A4,
+                GlobalSettings = new GlobalSettings
+                {
+                    ColorMode = ColorMode.Color,
                     Orientation = Orientation.Portrait,
-                    Margins = new MarginSettings { Top = 20, Bottom = 20 }
+                    PaperSize = PaperKind.A4,
                 },
                 Objects = {
-                    new ObjectSettings {
-                        HtmlContent = html,
+                    new ObjectSettings
+                    {
+                        HtmlContent = htmlContent,
                         WebSettings = { DefaultEncoding = "utf-8" }
                     }
                 }
             };
 
-            return converter.Convert(doc);
+            return _converter.Convert(document);
         }
     }
 }

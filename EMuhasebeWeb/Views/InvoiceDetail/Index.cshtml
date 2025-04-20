@@ -1,0 +1,31 @@
+﻿@model List<EMuhasebeWeb.Models.InvoiceDetail>
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+
+<h2>@Localizer["InvoiceDetails"]</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>@Localizer["Product"]</th>
+            <th>@Localizer["Quantity"]</th>
+            <th>@Localizer["UnitPrice"]</th>
+            <th>@Localizer["LineTotal"]</th>
+            <th>@Localizer["Actions"]</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Product?.Name</td>
+                <td>@item.Quantity</td>
+                <td>@item.UnitPrice ₺</td>
+                <td>@item.LineTotal ₺</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.InvoiceDetailID" class="btn btn-warning btn-sm">@Localizer["Edit"]</a>
+                    <a asp-action="Delete" asp-route-id="@item.InvoiceDetailID" class="btn btn-danger btn-sm">@Localizer["Delete"]</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

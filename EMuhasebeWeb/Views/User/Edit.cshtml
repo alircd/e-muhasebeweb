@@ -1,0 +1,30 @@
+﻿@model EMuhasebeWeb.Models.User
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+
+<h2>@Localizer["EditUser"]</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="UserID" />
+
+    <div class="mb-3">
+        <label>@Localizer["FullName"]</label>
+        <input asp-for="FullName" class="form-control" />
+        <span asp-validation-for="FullName" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label>@Localizer["Email"]</label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label>@Localizer["Role"]</label>
+        <select asp-for="RoleID" class="form-control" asp-items="@(new SelectList(ViewBag.Roles, "RoleID", "Name"))">
+            <option value="">@Localizer["SelectRole"]</option>
+        </select>
+        <span asp-validation-for="RoleID" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">@Localizer["Save"]</button>
+</form>

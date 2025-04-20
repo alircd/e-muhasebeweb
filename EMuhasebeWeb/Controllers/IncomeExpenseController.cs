@@ -15,18 +15,24 @@ namespace EMuhasebeWeb.Controllers
 
         public IActionResult Index()
         {
-            return View(_context.IncomeExpenses.ToList());
+            var list = _context.IncomeExpenses.ToList();
+            return View(list);
         }
 
-        public IActionResult Create() => View();
+        public IActionResult Create()
+        {
+            return View();
+        }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(IncomeExpense model)
         {
             if (ModelState.IsValid)
             {
                 _context.IncomeExpenses.Add(model);
                 _context.SaveChanges();
+                TempData["success"] = "Record saved successfully.";
                 return RedirectToAction("Index");
             }
             return View(model);
@@ -34,17 +40,20 @@ namespace EMuhasebeWeb.Controllers
 
         public IActionResult Edit(int id)
         {
-            var item = _context.IncomeExpenses.Find(id);
-            return View(item);
+            var record = _context.IncomeExpenses.Find(id);
+            if (record == null) return NotFound();
+            return View(record);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit(IncomeExpense model)
         {
             if (ModelState.IsValid)
             {
                 _context.IncomeExpenses.Update(model);
                 _context.SaveChanges();
+                TempData["success"] = "Record updated successfully.";
                 return RedirectToAction("Index");
             }
             return View(model);
@@ -52,10 +61,19 @@ namespace EMuhasebeWeb.Controllers
 
         public IActionResult Delete(int id)
         {
-            var item = _context.IncomeExpenses.Find(id);
-            if (item != null)
+            var record = _context.IncomeExpenses.Find(id);
+            if (record == null) return NotFound();
+            return View(record);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            var record = _context.IncomeExpenses.Find(id);
+            if (record != null)
             {
-                _context.IncomeExpenses.Remove(item);
+                _context.IncomeExpenses.Remove(record);
                 _context.SaveChanges();
             }
             return RedirectToAction("Index");

@@ -1,9 +1,7 @@
-﻿@model User
+﻿@model EMuhasebeWeb.Models.User
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
 
 <h2>@Localizer["AddUser"]</h2>
-
-@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 <form asp-action="Create" method="post">
     <div class="mb-3">
@@ -23,7 +21,7 @@
     </div>
     <div class="mb-3">
         <label>@Localizer["Role"]</label>
-        <select asp-for="RoleID" class="form-control" asp-items='@(new SelectList(ViewBag.Roles, "RoleID", "Name"))'>
+        <select asp-for="RoleID" class="form-control" asp-items="@(new SelectList(ViewBag.Roles, "RoleID", "Name"))">
             <option value="">@Localizer["SelectRole"]</option>
         </select>
         <span asp-validation-for="RoleID" class="text-danger"></span>

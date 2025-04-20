@@ -76,6 +76,26 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5jb21lRXhwZW5zZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/alirc/Desktop/e-muhasebeweb/EMuhasebeWeb/Views/InvoiceDetail/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52b2ljZURldGFpbFxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alirc/Desktop/e-muhasebeweb/EMuhasebeWeb/Views/InvoiceDetail/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52b2ljZURldGFpbFxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alirc/Desktop/e-muhasebeweb/EMuhasebeWeb/Views/InvoiceDetail/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52b2ljZURldGFpbFxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alirc/Desktop/e-muhasebeweb/EMuhasebeWeb/Views/InvoiceDetail/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52b2ljZURldGFpbFxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alirc/Desktop/e-muhasebeweb/EMuhasebeWeb/Views/InvoiceDetail/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52b2ljZURldGFpbFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/alirc/Desktop/e-muhasebeweb/EMuhasebeWeb/Views/Invoice/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52b2ljZVxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -90,6 +110,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/alirc/Desktop/e-muhasebeweb/EMuhasebeWeb/Views/Invoice/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52b2ljZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alirc/Desktop/e-muhasebeweb/EMuhasebeWeb/Views/Invoice/PdfTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52b2ljZVxQZGZUZW1wbGF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/alirc/Desktop/e-muhasebeweb/EMuhasebeWeb/Views/Product/Create.cshtml]
@@ -126,6 +150,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/alirc/Desktop/e-muhasebeweb/EMuhasebeWeb/Views/User/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alirc/Desktop/e-muhasebeweb/EMuhasebeWeb/Views/User/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/alirc/Desktop/e-muhasebeweb/EMuhasebeWeb/Views/User/Index.cshtml]

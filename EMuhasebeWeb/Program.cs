@@ -1,14 +1,20 @@
-﻿using DinkToPdf.Contracts;
-using DinkToPdf;
+﻿using DinkToPdf;
+using DinkToPdf.Contracts;
+using EMuhasebeWeb.Helpers;
 using EMuhasebeWeb.Models;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Globalization;
+// PDF motoru (libwkhtmltox.dll) yüklemesi için
+var wkHtmlToXFilePath = Path.Combine(Directory.GetCurrentDirectory(), "libwkhtmltox.dll");
+CustomAssemblyLoadContext loadContext = new CustomAssemblyLoadContext();
+loadContext.LoadUnmanagedLibrary(wkHtmlToXFilePath);
 
 var builder = WebApplication.CreateBuilder(args);
 
 
+// Localization
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
 builder.Services.Configure<RequestLocalizationOptions>(options =>
@@ -26,11 +32,19 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.RequestCultureProviders.Insert(0, new CookieRequestCultureProvider());
 });
 
-builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
-builder.Services.AddControllersWithViews().AddViewLocalization();
+// Session, HTTP context
 builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();
 
+// View Rendering + PDF
+builder.Services.AddSingleton<IConverter>(new SynchronizedConverter(new PdfTools()));
+builder.Services.AddScoped<PdfGenerator>();
+builder.Services.AddScoped<IViewRenderService, ViewRenderService>();
+
+// MVC + Localization
+builder.Services.AddControllersWithViews().AddViewLocalization();
+
+// Database
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -53,7 +67,7 @@ using (var scope = app.Services.CreateScope())
         {
             FullName = "System Admin",
             Email = "admin@example.com",
-            Password = EMuhasebeWeb.Helpers.PasswordHasher.Hash("1234"),
+            Password = PasswordHasher.Hash("1234"),
             RoleID = db.Roles.First(r => r.Name == "Admin").RoleID
         };
         db.Users.Add(adminUser);
@@ -61,9 +75,11 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
+// Localization middleware
 var localizationOptions = app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value;
 app.UseRequestLocalization(localizationOptions);
 
+// Default middleware
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -72,7 +88,6 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
 app.UseSession();
 app.UseAuthorization();

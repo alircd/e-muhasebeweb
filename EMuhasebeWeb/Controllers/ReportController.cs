@@ -8,10 +8,12 @@ namespace EMuhasebeWeb.Controllers
     public class ReportController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly PdfGenerator _pdfGenerator;
 
-        public ReportController(AppDbContext context)
+        public ReportController(AppDbContext context, PdfGenerator pdfGenerator)
         {
             _context = context;
+            _pdfGenerator = pdfGenerator;
         }
 
         public IActionResult Index(DateTime? startDate, DateTime? endDate)
@@ -49,18 +51,24 @@ namespace EMuhasebeWeb.Controllers
             var data = list.ToList();
 
             StringBuilder html = new StringBuilder();
-            html.Append("<h2>Gelir-Gider Raporu</h2>");
-            html.Append("<table border='1' cellpadding='5'><tr><th>Tarih</th><th>Açıklama</th><th>Tutar</th><th>Tür</th></tr>");
+            html.Append("<h2>Income & Expense Report</h2>");
+            html.Append("<table border='1' cellpadding='5' cellspacing='0'><thead><tr>");
+            html.Append("<th>Date</th><th>Description</th><th>Amount</th><th>Type</th></tr></thead><tbody>");
 
             foreach (var item in data)
             {
-                html.Append($"<tr><td>{item.Date:yyyy-MM-dd}</td><td>{item.Description}</td><td>{item.Amount} ₺</td><td>{(item.IsIncome ? "Gelir" : "Gider")}</td></tr>");
+                html.Append("<tr>");
+                html.Append($"<td>{item.Date:yyyy-MM-dd}</td>");
+                html.Append($"<td>{item.Description}</td>");
+                html.Append($"<td>{item.Amount} ₺</td>");
+                html.Append($"<td>{(item.IsIncome ? "Income" : "Expense")}</td>");
+                html.Append("</tr>");
             }
 
-            html.Append("</table>");
+            html.Append("</tbody></table>");
 
-            var pdfBytes = PdfGenerator.GeneratePdfFromHtml(html.ToString());
-            return File(pdfBytes, "application/pdf", "GelirGiderRaporu.pdf");
+            var pdfBytes = _pdfGenerator.GeneratePdfFromHtml(html.ToString());
+            return File(pdfBytes, "application/pdf", "IncomeExpenseReport.pdf");
         }
     }
 }

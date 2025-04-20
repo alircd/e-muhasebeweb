@@ -112,7 +112,6 @@ namespace EMuhasebeWeb.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsIncome")
@@ -208,51 +207,23 @@ namespace EMuhasebeWeb.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductID"));
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Stock")
-                        .HasColumnType("int");
 
                     b.HasKey("ProductID");
 
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Role", b =>
-                {
-                    b.Property<int>("RoleID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleID"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("RoleID");
-
-                    b.ToTable("Roles");
-
-                    b.HasData(
-                        new
-                        {
-                            RoleID = 1,
-                            Name = "Admin"
-                        },
-                        new
-                        {
-                            RoleID = 2,
-                            Name = "Staff"
-                        });
-                });
-
-            modelBuilder.Entity("User", b =>
+            modelBuilder.Entity("EMuhasebeWeb.Models.User", b =>
                 {
                     b.Property<int>("UserID")
                         .ValueGeneratedOnAdd()
@@ -324,6 +295,35 @@ namespace EMuhasebeWeb.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Role", b =>
+                {
+                    b.Property<int>("RoleID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleID"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RoleID");
+
+                    b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            RoleID = 1,
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            RoleID = 2,
+                            Name = "Staff"
+                        });
+                });
+
             modelBuilder.Entity("EMuhasebeWeb.Models.Invoice", b =>
                 {
                     b.HasOne("EMuhasebeWeb.Models.Customer", "Customer")
@@ -344,7 +344,7 @@ namespace EMuhasebeWeb.Migrations
                         .IsRequired();
 
                     b.HasOne("EMuhasebeWeb.Models.Product", "Product")
-                        .WithMany("InvoiceDetails")
+                        .WithMany()
                         .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -365,7 +365,7 @@ namespace EMuhasebeWeb.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("User", b =>
+            modelBuilder.Entity("EMuhasebeWeb.Models.User", b =>
                 {
                     b.HasOne("Role", "Role")
                         .WithMany("Users")
@@ -377,11 +377,6 @@ namespace EMuhasebeWeb.Migrations
                 });
 
             modelBuilder.Entity("EMuhasebeWeb.Models.Invoice", b =>
-                {
-                    b.Navigation("InvoiceDetails");
-                });
-
-            modelBuilder.Entity("EMuhasebeWeb.Models.Product", b =>
                 {
                     b.Navigation("InvoiceDetails");
                 });

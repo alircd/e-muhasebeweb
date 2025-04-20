@@ -1,24 +1,18 @@
-﻿@model IncomeExpense
+﻿@model EMuhasebeWeb.Models.IncomeExpense
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
-
-@{
-    ViewData["Title"] = Localizer["AddRecord"];
-}
 
 <h2>@Localizer["AddRecord"]</h2>
 
 <form asp-action="Create" method="post">
     <div class="mb-3">
         <label>@Localizer["Date"]</label>
-        <input asp-for="Date" type="date" class="form-control" />
-    </div>
-    <div class="mb-3">
-        <label>@Localizer["Description"]</label>
-        <input asp-for="Description" class="form-control" />
+        <input asp-for="Date" class="form-control" type="date" />
+        <span asp-validation-for="Date" class="text-danger"></span>
     </div>
     <div class="mb-3">
         <label>@Localizer["Amount"]</label>
         <input asp-for="Amount" class="form-control" />
+        <span asp-validation-for="Amount" class="text-danger"></span>
     </div>
     <div class="mb-3">
         <label>@Localizer["Type"]</label>
@@ -26,6 +20,10 @@
             <option value="true">@Localizer["Income"]</option>
             <option value="false">@Localizer["Expense"]</option>
         </select>
+    </div>
+    <div class="mb-3">
+        <label>@Localizer["Description"]</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
     </div>
     <button type="submit" class="btn btn-primary">@Localizer["Save"]</button>
 </form>

@@ -1,8 +1,13 @@
-﻿@model List<User>
+﻿@model List<EMuhasebeWeb.Models.User>
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
 
-<h2>@Localizer["Users"]</h2>
-<a asp-action="Create" class="btn btn-success mb-3">@Localizer["AddUser"]</a>
+@{
+    ViewData["Title"] = Localizer["Users"];
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<a asp-action="Create" class="btn btn-success mb-2">@Localizer["AddUser"]</a>
 
 <table class="table table-bordered">
     <thead>
@@ -21,6 +26,7 @@
                 <td>@item.Email</td>
                 <td>@item.Role?.Name</td>
                 <td>
+                    <a asp-action="Edit" asp-route-id="@item.UserID" class="btn btn-warning btn-sm">@Localizer["Edit"]</a>
                     <a asp-action="Delete" asp-route-id="@item.UserID" class="btn btn-danger btn-sm">@Localizer["Delete"]</a>
                 </td>
             </tr>

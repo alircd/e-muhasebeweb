@@ -14,47 +14,65 @@ namespace EMuhasebeWeb.Controllers
 
         public IActionResult Index()
         {
-            return View(_context.Products.ToList());
+            var products = _context.Products.ToList();
+            return View(products);
         }
 
-        public IActionResult Create() => View();
+        public IActionResult Create()
+        {
+            return View();
+        }
 
         [HttpPost]
-        public IActionResult Create(Product model)
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Product product)
         {
             if (ModelState.IsValid)
             {
-                _context.Products.Add(model);
+                _context.Products.Add(product);
                 _context.SaveChanges();
+                TempData["Success"] = "Product added.";
                 return RedirectToAction("Index");
             }
-            return View(model);
+            return View(product);
         }
 
         public IActionResult Edit(int id)
         {
-            var item = _context.Products.Find(id);
-            return View(item);
+            var product = _context.Products.Find(id);
+            if (product == null) return NotFound();
+            return View(product);
         }
 
         [HttpPost]
-        public IActionResult Edit(Product model)
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Product product)
         {
             if (ModelState.IsValid)
             {
-                _context.Products.Update(model);
+                _context.Products.Update(product);
                 _context.SaveChanges();
+                TempData["Success"] = "Product updated.";
                 return RedirectToAction("Index");
             }
-            return View(model);
+            return View(product);
         }
 
         public IActionResult Delete(int id)
         {
-            var item = _context.Products.Find(id);
-            if (item != null)
+            var product = _context.Products.Find(id);
+            if (product == null) return NotFound();
+            return View(product);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            var product = _context.Products.Find(id);
+            if (product != null)
             {
-                _context.Products.Remove(item);
+                _context.Products.Remove(product);
                 _context.SaveChanges();
             }
             return RedirectToAction("Index");

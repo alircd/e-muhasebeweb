@@ -1,14 +1,22 @@
-﻿@model List<Invoice>
+﻿@model List<EMuhasebeWeb.Models.Invoice>
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
 
 @{
     ViewData["Title"] = Localizer["Invoices"];
 }
 
-<h2>@Localizer["Invoices"]</h2>
-<a asp-action="Create" class="btn btn-success mb-2">@Localizer["AddInvoice"]</a>
+<h2>@ViewData["Title"]</h2>
 
-<table class="table table-bordered">
+
+<a asp-action="Create" class="btn btn-success mb-3">@Localizer["AddInvoice"]</a>
+
+
+@if (TempData["success"] != null)
+{
+    <div class="alert alert-success">@TempData["success"]</div>
+}
+
+<table class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>@Localizer["Customer"]</th>
@@ -25,7 +33,11 @@
                 <td>@invoice.Date.ToString("yyyy-MM-dd")</td>
                 <td>@invoice.TotalAmount ₺</td>
                 <td>
+                    <a asp-action="Edit" asp-route-id="@invoice.InvoiceID" class="btn btn-warning btn-sm">@Localizer["Edit"]</a>
                     <a asp-action="Delete" asp-route-id="@invoice.InvoiceID" class="btn btn-danger btn-sm">@Localizer["Delete"]</a>
+                    <a asp-action="ExportToPdf" asp-route-id="@invoice.InvoiceID" class="btn btn-info btn-sm">
+                        PDF
+                    </a>
                 </td>
             </tr>
         }

@@ -1,21 +1,19 @@
-﻿@model IncomeExpense
+﻿@model EMuhasebeWeb.Models.IncomeExpense
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
 
-@{
-    ViewData["Title"] = Localizer["DeleteRecord"];
-}
-
-<h2 class="text-danger">@Localizer["DeleteRecord"]</h2>
+<h2>@Localizer["DeleteRecord"]</h2>
 
 <div class="alert alert-warning">
     <p>@Localizer["DeleteConfirmation"]</p>
     <ul>
         <li><strong>@Localizer["Date"]:</strong> @Model.Date.ToString("yyyy-MM-dd")</li>
         <li><strong>@Localizer["Amount"]:</strong> @Model.Amount ₺</li>
+        <li><strong>@Localizer["Type"]:</strong> @(Model.IsIncome ? Localizer["Income"] : Localizer["Expense"])</li>
+        <li><strong>@Localizer["Description"]:</strong> @Model.Description</li>
     </ul>
 </div>
 
-<form asp-action="Delete" method="post">
+<form asp-action="Delete">
     <input type="hidden" asp-for="IncomeExpenseID" />
     <button type="submit" class="btn btn-danger">@Localizer["Delete"]</button>
     <a asp-action="Index" class="btn btn-secondary">@Localizer["Cancel"]</a>

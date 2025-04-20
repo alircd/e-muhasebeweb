@@ -21,6 +21,7 @@ namespace EMuhasebeWeb.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+           
             base.OnModelCreating(modelBuilder);
 
             // Role Seed
@@ -28,6 +29,9 @@ namespace EMuhasebeWeb.Models
                 new Role { RoleID = 1, Name = "Admin" },
                 new Role { RoleID = 2, Name = "Staff" }
             );
+            modelBuilder.Entity<Product>()
+              .Property(p => p.Price)
+               .HasColumnType("decimal(18,2)");
 
             // User Seed
             modelBuilder.Entity<User>().HasData(
