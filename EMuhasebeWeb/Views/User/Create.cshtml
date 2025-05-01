@@ -1,30 +1,38 @@
 ﻿@model EMuhasebeWeb.Models.User
-@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+@{
+    ViewData["Title"] = "Add User";
+}
 
-<h2>@Localizer["AddUser"]</h2>
+<div class="card shadow-sm rounded-4 p-4">
+    <h2 class="mb-4">➕ Add New User</h2>
 
-<form asp-action="Create" method="post">
-    <div class="mb-3">
-        <label>@Localizer["FullName"]</label>
-        <input asp-for="FullName" class="form-control" />
-        <span asp-validation-for="FullName" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label>@Localizer["Email"]</label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label>@Localizer["Password"]</label>
-        <input asp-for="Password" class="form-control" type="password" />
-        <span asp-validation-for="Password" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label>@Localizer["Role"]</label>
-        <select asp-for="RoleID" class="form-control" asp-items="@(new SelectList(ViewBag.Roles, "RoleID", "Name"))">
-            <option value="">@Localizer["SelectRole"]</option>
-        </select>
-        <span asp-validation-for="RoleID" class="text-danger"></span>
-    </div>
-    <button type="submit" class="btn btn-primary">@Localizer["Save"]</button>
-</form>
+    <form asp-action="Create" method="post">
+        <div class="mb-3">
+            <label class="form-label">Full Name</label>
+            <input asp-for="FullName" class="form-control" />
+            <span asp-validation-for="FullName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input asp-for="Password" class="form-control" type="password" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Role</label>
+            <select asp-for="RoleID" class="form-select" asp-items="@(new SelectList(ViewBag.Roles, "RoleID", "Name"))">
+                <option value="">-- Select Role --</option>
+            </select>
+            <span asp-validation-for="RoleID" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-success">💾 Save</button>
+    </form>
+</div>

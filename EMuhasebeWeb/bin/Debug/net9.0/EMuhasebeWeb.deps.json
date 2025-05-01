@@ -19,14 +19,6 @@
         },
         "runtime": {
           "EMuhasebeWeb.dll": {}
-        },
-        "resources": {
-          "en/EMuhasebeWeb.resources.dll": {
-            "locale": "en"
-          },
-          "nl/EMuhasebeWeb.resources.dll": {
-            "locale": "nl"
-          }
         }
       },
       "Azure.Core/1.38.0": {

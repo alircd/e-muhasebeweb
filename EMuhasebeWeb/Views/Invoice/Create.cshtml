@@ -1,25 +1,32 @@
 ﻿@model EMuhasebeWeb.Models.Invoice
-@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+@{
+    ViewData["Title"] = "Add Invoice";
+}
 
-<h2>@Localizer["AddInvoice"]</h2>
+<div class="card shadow-sm rounded-4 p-4">
+    <h2 class="mb-4">➕ Add New Invoice</h2>
 
-<form asp-action="Create" method="post">
-    <div class="mb-3">
-        <label>@Localizer["Customer"]</label>
-        <select asp-for="CustomerID" class="form-control" asp-items="@(new SelectList(ViewBag.Customers, "CustomerID", "FullName"))">
-            <option value="">@Localizer["SelectCustomer"]</option>
-        </select>
-        <span asp-validation-for="CustomerID" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label>@Localizer["Date"]</label>
-        <input asp-for="Date" class="form-control" type="date" />
-        <span asp-validation-for="Date" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label>@Localizer["TotalAmount"]</label>
-        <input asp-for="TotalAmount" class="form-control" />
-        <span asp-validation-for="TotalAmount" class="text-danger"></span>
-    </div>
-    <button type="submit" class="btn btn-primary">@Localizer["Save"]</button>
-</form>
+    <form asp-action="Create" method="post">
+        <div class="mb-3">
+            <label class="form-label">Customer</label>
+            <select asp-for="CustomerID" class="form-select" asp-items="@(new SelectList(ViewBag.Customers, "CustomerID", "FullName"))">
+                <option value="">-- Select Customer --</option>
+            </select>
+            <span asp-validation-for="CustomerID" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Date</label>
+            <input asp-for="Date" type="date" class="form-control" />
+            <span asp-validation-for="Date" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Total Amount</label>
+            <input asp-for="TotalAmount" class="form-control" />
+            <span asp-validation-for="TotalAmount" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-success">💾 Save</button>
+    </form>
+</div>

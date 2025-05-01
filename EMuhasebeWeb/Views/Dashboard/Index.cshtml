@@ -1,53 +1,51 @@
 ﻿@model EMuhasebeWeb.Models.DashboardViewModel
-@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
-
 @{
-    ViewData["Title"] = Localizer["DashboardTitle"];
+    ViewData["Title"] = "Dashboard";
 }
 
-<h2>@Localizer["DashboardTitle"]</h2>
+<h2 class="mb-4">📊 Dashboard</h2>
 
 <div class="row g-4">
     <div class="col-md-3">
-        <div class="card bg-primary text-white">
+        <div class="card text-white bg-primary shadow-sm">
             <div class="card-body">
-                <h5>@Localizer["Users"]</h5>
+                <h5 class="card-title">Users</h5>
                 <h3>@Model.UserCount</h3>
             </div>
         </div>
     </div>
 
     <div class="col-md-3">
-        <div class="card bg-success text-white">
+        <div class="card text-white bg-success shadow-sm">
             <div class="card-body">
-                <h5>@Localizer["Customers"]</h5>
+                <h5 class="card-title">Customers</h5>
                 <h3>@Model.CustomerCount</h3>
             </div>
         </div>
     </div>
 
     <div class="col-md-3">
-        <div class="card bg-warning text-dark">
+        <div class="card text-dark bg-warning shadow-sm">
             <div class="card-body">
-                <h5>@Localizer["Invoices"]</h5>
+                <h5 class="card-title">Invoices</h5>
                 <h3>@Model.InvoiceCount</h3>
             </div>
         </div>
     </div>
 
     <div class="col-md-3">
-        <div class="card bg-info text-white">
+        <div class="card text-white bg-info shadow-sm">
             <div class="card-body">
-                <h5>@Localizer["TodayIncome"]</h5>
+                <h5 class="card-title">Today's Income</h5>
                 <h3>@Model.TodayIncome ₺</h3>
             </div>
         </div>
     </div>
 
     <div class="col-md-3">
-        <div class="card bg-danger text-white">
+        <div class="card text-white bg-danger shadow-sm">
             <div class="card-body">
-                <h5>@Localizer["TodayExpense"]</h5>
+                <h5 class="card-title">Today's Expense</h5>
                 <h3>@Model.TodayExpense ₺</h3>
             </div>
         </div>

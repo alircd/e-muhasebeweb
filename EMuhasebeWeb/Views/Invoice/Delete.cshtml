@@ -1,19 +1,23 @@
 ﻿@model EMuhasebeWeb.Models.Invoice
-@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+@{
+    ViewData["Title"] = "Delete Invoice";
+}
 
-<h2>@Localizer["DeleteInvoice"]</h2>
+<div class="card shadow-sm rounded-4 p-4">
+    <h2 class="text-danger mb-3">🗑️ Delete Invoice</h2>
 
-<div class="alert alert-warning">
-    <p>@Localizer["DeleteConfirmation"]</p>
-    <ul>
-        <li><strong>@Localizer["Customer"]:</strong> @Model.Customer?.FullName</li>
-        <li><strong>@Localizer["Date"]:</strong> @Model.Date.ToString("yyyy-MM-dd")</li>
-        <li><strong>@Localizer["TotalAmount"]:</strong> @Model.TotalAmount ₺</li>
-    </ul>
+    <div class="alert alert-warning">
+        <p>Are you sure you want to delete this invoice?</p>
+        <ul>
+            <li><strong>Customer:</strong> @Model.Customer?.FullName</li>
+            <li><strong>Date:</strong> @Model.Date.ToString("yyyy-MM-dd")</li>
+            <li><strong>Total:</strong> @Model.TotalAmount ₺</li>
+        </ul>
+    </div>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="InvoiceID" />
+        <button type="submit" class="btn btn-danger me-2">🗑️ Confirm Delete</button>
+        <a asp-action="Index" class="btn btn-secondary">❌ Cancel</a>
+    </form>
 </div>
-
-<form asp-action="Delete">
-    <input type="hidden" asp-for="InvoiceID" />
-    <button type="submit" class="btn btn-danger">@Localizer["Delete"]</button>
-    <a asp-action="Index" class="btn btn-secondary">@Localizer["Cancel"]</a>
-</form>

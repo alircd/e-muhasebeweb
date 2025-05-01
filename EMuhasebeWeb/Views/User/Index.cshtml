@@ -1,35 +1,35 @@
 ﻿@model List<EMuhasebeWeb.Models.User>
-@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
-
 @{
-    ViewData["Title"] = Localizer["Users"];
+    ViewData["Title"] = "Users";
 }
 
-<h2>@ViewData["Title"]</h2>
+<div class="card shadow-sm rounded-4 p-4">
+    <h2 class="mb-4">👤 User Management</h2>
 
-<a asp-action="Create" class="btn btn-success mb-2">@Localizer["AddUser"]</a>
+    <a asp-action="Create" class="btn btn-success mb-3">➕ Add New User</a>
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>@Localizer["FullName"]</th>
-            <th>@Localizer["Email"]</th>
-            <th>@Localizer["Role"]</th>
-            <th>@Localizer["Actions"]</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+    <table class="table table-hover table-striped align-middle">
+        <thead class="table-dark">
             <tr>
-                <td>@item.FullName</td>
-                <td>@item.Email</td>
-                <td>@item.Role?.Name</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.UserID" class="btn btn-warning btn-sm">@Localizer["Edit"]</a>
-                    <a asp-action="Delete" asp-route-id="@item.UserID" class="btn btn-danger btn-sm">@Localizer["Delete"]</a>
-                </td>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th class="text-center">Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.FullName</td>
+                    <td>@item.Email</td>
+                    <td>@item.Role?.Name</td>
+                    <td class="text-center">
+                        <a asp-action="Edit" asp-route-id="@item.UserID" class="btn btn-sm btn-outline-warning me-2">✏️ Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.UserID" class="btn btn-sm btn-outline-danger">🗑️ Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

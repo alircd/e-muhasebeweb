@@ -1,22 +1,30 @@
 ﻿@model EMuhasebeWeb.Models.Product
-@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+@{
+    ViewData["Title"] = "Add Product";
+}
 
-<h2>@Localizer["AddProduct"]</h2>
+<div class="card shadow-sm rounded-4 p-4">
+    <h2 class="mb-4">➕ Add New Product</h2>
 
-<form asp-action="Create" method="post">
-    <div class="mb-3">
-        <label>@Localizer["Name"]</label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label>@Localizer["Price"]</label>
-        <input asp-for="Price" class="form-control" />
-        <span asp-validation-for="Price" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label>@Localizer["Description"]</label>
-        <textarea asp-for="Description" class="form-control"></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">@Localizer["Save"]</button>
-</form>
+    <form asp-action="Create" method="post">
+        <div class="mb-3">
+            <label class="form-label">Product Name</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Price</label>
+            <input asp-for="Price" class="form-control" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-success">💾 Save</button>
+    </form>
+</div>

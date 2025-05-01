@@ -1,35 +1,35 @@
 ﻿@model List<EMuhasebeWeb.Models.Product>
-@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
-
 @{
-    ViewData["Title"] = Localizer["Products"];
+    ViewData["Title"] = "Products";
 }
 
-<h2>@ViewData["Title"]</h2>
+<div class="card shadow-sm rounded-4 p-4">
+    <h2 class="mb-4">📦 Product List</h2>
 
-<a asp-action="Create" class="btn btn-success mb-2">@Localizer["AddProduct"]</a>
+    <a asp-action="Create" class="btn btn-primary mb-3">➕ Add New Product</a>
 
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>@Localizer["Name"]</th>
-            <th>@Localizer["Price"]</th>
-            <th>@Localizer["Description"]</th>
-            <th>@Localizer["Actions"]</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+    <table class="table table-hover table-striped align-middle">
+        <thead class="table-dark">
             <tr>
-                <td>@item.Name</td>
-                <td>@item.Price.ToString("C")</td>
-                <td>@item.Description</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.ProductID" class="btn btn-warning btn-sm">@Localizer["Edit"]</a>
-                    <a asp-action="Delete" asp-route-id="@item.ProductID" class="btn btn-danger btn-sm">@Localizer["Delete"]</a>
-                </td>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th class="text-center">Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Price ₺</td>
+                    <td>@item.Description</td>
+                    <td class="text-center">
+                        <a asp-action="Edit" asp-route-id="@item.ProductID" class="btn btn-sm btn-outline-warning me-2">✏️ Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.ProductID" class="btn btn-sm btn-outline-danger">🗑️ Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

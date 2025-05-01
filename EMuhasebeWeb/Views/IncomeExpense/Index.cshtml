@@ -1,38 +1,41 @@
 ﻿@model List<EMuhasebeWeb.Models.IncomeExpense>
-@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
-
-<h2>@Localizer["IncomeExpense"]</h2>
-
-<a asp-action="Create" class="btn btn-success mb-2">@Localizer["AddRecord"]</a>
-
-@if (TempData["success"] != null)
-{
-    <div class="alert alert-success">@TempData["success"]</div>
+@{
+    ViewData["Title"] = "Income & Expense Records";
 }
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>@Localizer["Date"]</th>
-            <th>@Localizer["Amount"]</th>
-            <th>@Localizer["Type"]</th>
-            <th>@Localizer["Description"]</th>
-            <th>@Localizer["Actions"]</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<div class="card shadow-sm rounded-4 p-4">
+    <h2 class="mb-4">💸 Income & Expense</h2>
+
+    <a asp-action="Create" class="btn btn-primary mb-3">➕ Add New</a>
+
+    <table class="table table-hover table-striped align-middle">
+        <thead class="table-dark">
             <tr>
-                <td>@item.Date.ToString("yyyy-MM-dd")</td>
-                <td>@item.Amount ₺</td>
-                <td>@(item.IsIncome ? Localizer["Income"] : Localizer["Expense"])</td>
-                <td>@item.Description</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.IncomeExpenseID" class="btn btn-warning btn-sm">@Localizer["Edit"]</a>
-                    <a asp-action="Delete" asp-route-id="@item.IncomeExpenseID" class="btn btn-danger btn-sm">@Localizer["Delete"]</a>
-                </td>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Type</th>
+                <th class="text-center">Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Date.ToString("yyyy-MM-dd")</td>
+                    <td>@item.Description</td>
+                    <td>@item.Amount ₺</td>
+                    <td>
+                        <span class="badge bg-@(item.IsIncome ? "success" : "danger")">
+                            @(item.IsIncome ? "Income" : "Expense")
+                        </span>
+                    </td>
+                    <td class="text-center">
+                        <a asp-action="Edit" asp-route-id="@item.IncomeExpenseID" class="btn btn-sm btn-outline-warning me-2">✏️ Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.IncomeExpenseID" class="btn btn-sm btn-outline-danger">🗑️ Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

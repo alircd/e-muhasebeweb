@@ -6,24 +6,27 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Session, HTTP context
+// ✅ libwkhtmltox.dll yükle
+var wkHtmlToXFilePath = Path.Combine(Directory.GetCurrentDirectory(), "libwkhtmltox.dll");
+var loadContext = new CustomAssemblyLoadContext();
+loadContext.LoadUnmanagedLibrary(wkHtmlToXFilePath);
+
+// ✅ Gerekli servisler
 builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();
 
-// View Rendering + PDF
 builder.Services.AddSingleton<IConverter>(new SynchronizedConverter(new PdfTools()));
 builder.Services.AddScoped<PdfGenerator>();
 builder.Services.AddScoped<IViewRenderService, ViewRenderService>();
 
-// MVC
 builder.Services.AddControllersWithViews();
 
-// Database
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 
+// ✅ Uygulama ilk açıldığında varsayılan admin ve rol oluştur
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
@@ -49,6 +52,7 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
+// ✅ Middleware sıralaması
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -61,6 +65,7 @@ app.UseRouting();
 app.UseSession();
 app.UseAuthorization();
 
+// ✅ Giriş sayfası default olarak açılır
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Auth}/{action=Login}/{id?}");

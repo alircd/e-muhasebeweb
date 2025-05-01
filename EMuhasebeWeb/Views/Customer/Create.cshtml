@@ -1,30 +1,37 @@
 ﻿@model Customer
-@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+@{
+    ViewData["Title"] = "Add Customer";
+}
 
-<h2>@Localizer["AddCustomer"]</h2>
+<div class="card shadow-sm rounded-4 p-4">
+    <h2 class="mb-4">➕ Add New Customer</h2>
 
-@* Form hatalarını göster *@
-@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-<form asp-action="Create" method="post">
-    <div class="mb-3">
-        <label>@Localizer["FullName"]</label>
-        <input asp-for="FullName" class="form-control" />
-        <span asp-validation-for="FullName" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label>@Localizer["Email"]</label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label>@Localizer["Phone"]</label>
-        <input asp-for="Phone" class="form-control" />
-        <span asp-validation-for="Phone" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label>@Localizer["Address"]</label>
-        <textarea asp-for="Address" class="form-control"></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">@Localizer["Save"]</button>
-</form>
+    <form asp-action="Create" method="post">
+        <div class="mb-3">
+            <label class="form-label">Full Name</label>
+            <input asp-for="FullName" class="form-control" />
+            <span asp-validation-for="FullName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Phone</label>
+            <input asp-for="Phone" class="form-control" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Address</label>
+            <textarea asp-for="Address" class="form-control"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success">💾 Save</button>
+    </form>
+</div>

@@ -1,45 +1,36 @@
 ﻿@model List<EMuhasebeWeb.Models.Invoice>
-@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
-
 @{
-    ViewData["Title"] = Localizer["Invoices"];
+    ViewData["Title"] = "Invoices";
 }
 
-<h2>@ViewData["Title"]</h2>
+<div class="card shadow-sm rounded-4 p-4">
+    <h2 class="mb-4">🧾 Invoices</h2>
 
+    <a asp-action="Create" class="btn btn-primary mb-3">➕ Add New Invoice</a>
 
-<a asp-action="Create" class="btn btn-success mb-3">@Localizer["AddInvoice"]</a>
-
-
-@if (TempData["success"] != null)
-{
-    <div class="alert alert-success">@TempData["success"]</div>
-}
-
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>@Localizer["Customer"]</th>
-            <th>@Localizer["Date"]</th>
-            <th>@Localizer["TotalAmount"]</th>
-            <th>@Localizer["Actions"]</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var invoice in Model)
-        {
+    <table class="table table-hover table-striped align-middle">
+        <thead class="table-dark">
             <tr>
-                <td>@invoice.Customer?.FullName</td>
-                <td>@invoice.Date.ToString("yyyy-MM-dd")</td>
-                <td>@invoice.TotalAmount ₺</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@invoice.InvoiceID" class="btn btn-warning btn-sm">@Localizer["Edit"]</a>
-                    <a asp-action="Delete" asp-route-id="@invoice.InvoiceID" class="btn btn-danger btn-sm">@Localizer["Delete"]</a>
-                    <a asp-action="ExportToPdf" asp-route-id="@invoice.InvoiceID" class="btn btn-info btn-sm">
-                        PDF
-                    </a>
-                </td>
+                <th>Customer</th>
+                <th>Date</th>
+                <th>Total Amount</th>
+                <th class="text-center">Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var invoice in Model)
+            {
+                <tr>
+                    <td>@invoice.Customer?.FullName</td>
+                    <td>@invoice.Date.ToString("yyyy-MM-dd")</td>
+                    <td>@invoice.TotalAmount ₺</td>
+                    <td class="text-center">
+                        <a asp-action="Edit" asp-route-id="@invoice.InvoiceID" class="btn btn-sm btn-outline-warning me-2">✏️ Edit</a>
+                        <a asp-action="Delete" asp-route-id="@invoice.InvoiceID" class="btn btn-sm btn-outline-danger me-2">🗑️ Delete</a>
+                        <a asp-action="Details" asp-route-id="@invoice.InvoiceID" class="btn btn-sm btn-outline-primary">📄 Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

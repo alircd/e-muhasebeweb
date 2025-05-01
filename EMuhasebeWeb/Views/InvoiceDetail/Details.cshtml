@@ -1,51 +1,55 @@
 ﻿@model EMuhasebeWeb.Models.Invoice
-@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+@{
+    ViewData["Title"] = "Invoice Details";
+}
 
-<h2>@Localizer["InvoiceDetails"]</h2>
+<div class="card shadow-sm rounded-4 p-4 mb-4">
+    <h2 class="mb-4">🧾 Invoice Summary</h2>
 
-<div class="card mb-4">
-    <div class="card-body">
-        <p><strong>@Localizer["Customer"]:</strong> @Model.Customer?.FullName</p>
-        <p><strong>@Localizer["Date"]:</strong> @Model.Date.ToString("yyyy-MM-dd")</p>
-        <p><strong>@Localizer["TotalAmount"]:</strong> @Model.TotalAmount ₺</p>
+    <div class="mb-3">
+        <p><strong>Customer:</strong> @Model.Customer?.FullName</p>
+        <p><strong>Date:</strong> @Model.Date.ToString("yyyy-MM-dd")</p>
+        <p><strong>Total Amount:</strong> @Model.TotalAmount.ToString("0.00") ₺</p>
     </div>
+
+    <a asp-controller="InvoiceDetail" asp-action="Create" asp-route-invoiceId="@Model.InvoiceID"
+       class="btn btn-outline-primary mb-3">➕ Add Invoice Detail</a>
+
+    @if (Model.InvoiceDetails != null && Model.InvoiceDetails.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Unit Price</th>
+                        <th>Line Total</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var detail in Model.InvoiceDetails)
+                    {
+                        <tr>
+                            <td>@detail.Product?.Name</td>
+                            <td>@detail.Quantity</td>
+                            <td>@detail.UnitPrice.ToString("0.00") ₺</td>
+                            <td>@detail.LineTotal.ToString("0.00") ₺</td>
+                            <td class="text-center">
+                                <a asp-controller="InvoiceDetail" asp-action="Delete" asp-route-id="@detail.InvoiceDetailID"
+                                   class="btn btn-sm btn-outline-danger">🗑️ Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center mt-4">
+            No invoice details found.
+        </div>
+    }
 </div>
-
-<a asp-controller="InvoiceDetail" asp-action="Create" asp-route-invoiceId="@Model.InvoiceID" class="btn btn-primary mb-3">
-    @Localizer["AddInvoiceDetail"]
-</a>
-
-@if (Model.InvoiceDetails != null && Model.InvoiceDetails.Any())
-{
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>@Localizer["Product"]</th>
-                <th>@Localizer["Quantity"]</th>
-                <th>@Localizer["UnitPrice"]</th>
-                <th>@Localizer["LineTotal"]</th>
-                <th>@Localizer["Actions"]</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var detail in Model.InvoiceDetails)
-            {
-                <tr>
-                    <td>@detail.Product?.Name</td>
-                    <td>@detail.Quantity</td>
-                    <td>@detail.UnitPrice ₺</td>
-                    <td>@detail.LineTotal ₺</td>
-                    <td>
-                        <a asp-controller="InvoiceDetail" asp-action="Delete" asp-route-id="@detail.InvoiceDetailID" class="btn btn-danger btn-sm">
-                            @Localizer["Delete"]
-                        </a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-else
-{
-    <p class="text-muted">@Localizer["NoInvoiceDetails"]</p>
-}

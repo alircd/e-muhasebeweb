@@ -1,81 +1,35 @@
 ﻿@model EMuhasebeWeb.Models.Invoice
-@{
-    Layout = null; // PDF çıktısı için layout kullanılmaz
-    var invoice = Model;
-    var customer = invoice.Customer;
-}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <title>Invoice - @invoice.InvoiceID</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            padding: 30px;
-        }
+<h1>Invoice Summary</h1>
+<p><strong>Customer:</strong> @Model.Customer?.FullName</p>
+<p><strong>Date:</strong> @Model.Date.ToString("yyyy-MM-dd")</p>
+<p><strong>Total Amount:</strong> @Model.TotalAmount ₺</p>
 
-        h1, h2 {
-            text-align: center;
-            color: #333;
-        }
-
-        table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-        }
-
-        table, th, td {
-            border: 1px solid #999;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-
-        .total {
-            font-weight: bold;
-            background-color: #f4f4f4;
-        }
-    </style>
-</head>
-<body>
-
-    <h1>E-Muhasebe</h1>
-    <h2>Invoice #@invoice.InvoiceID</h2>
-
-    <p><strong>Customer:</strong> @customer.FullName</p>
-    <p><strong>Date:</strong> @invoice.Date.ToString("yyyy-MM-dd")</p>
-
-    <table>
+@if (Model.InvoiceDetails?.Any() == true)
+{
+    <table style="width:100%; border-collapse: collapse;" border="1" cellpadding="5">
         <thead>
             <tr>
                 <th>Product</th>
                 <th>Quantity</th>
-                <th>Unit Price (₺)</th>
-                <th>Total (₺)</th>
+                <th>Unit Price</th>
+                <th>Line Total</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in invoice.InvoiceDetails)
+            @foreach (var item in Model.InvoiceDetails)
             {
                 <tr>
                     <td>@item.Product?.Name</td>
                     <td>@item.Quantity</td>
-                    <td>@item.UnitPrice.ToString("0.00")</td>
-                    <td>@(item.Quantity * item.UnitPrice).ToString("0.00")</td>
+                    <td>@item.UnitPrice ₺</td>
+                    <td>@item.LineTotal ₺</td>
                 </tr>
             }
-            <tr class="total">
-                <td colspan="3">Total Amount</td>
-                <td>@invoice.TotalAmount.ToString("0.00") ₺</td>
-            </tr>
         </tbody>
     </table>
-
-</body>
-</html>
+}
+else
+{
+    <p><em>No invoice details found.</em></p>
+}
