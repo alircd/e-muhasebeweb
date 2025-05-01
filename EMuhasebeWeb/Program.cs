@@ -2,35 +2,9 @@
 using DinkToPdf.Contracts;
 using EMuhasebeWeb.Helpers;
 using EMuhasebeWeb.Models;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using System.Globalization;
-// PDF motoru (libwkhtmltox.dll) yüklemesi için
-var wkHtmlToXFilePath = Path.Combine(Directory.GetCurrentDirectory(), "libwkhtmltox.dll");
-CustomAssemblyLoadContext loadContext = new CustomAssemblyLoadContext();
-loadContext.LoadUnmanagedLibrary(wkHtmlToXFilePath);
 
 var builder = WebApplication.CreateBuilder(args);
-
-
-// Localization
-builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
-
-builder.Services.Configure<RequestLocalizationOptions>(options =>
-{
-    var supportedCultures = new[]
-    {
-        new CultureInfo("en"),
-        new CultureInfo("nl")
-    };
-
-    options.DefaultRequestCulture = new RequestCulture("en");
-    options.SupportedCultures = supportedCultures;
-    options.SupportedUICultures = supportedCultures;
-
-    options.RequestCultureProviders.Insert(0, new CookieRequestCultureProvider());
-});
 
 // Session, HTTP context
 builder.Services.AddSession();
@@ -41,8 +15,8 @@ builder.Services.AddSingleton<IConverter>(new SynchronizedConverter(new PdfTools
 builder.Services.AddScoped<PdfGenerator>();
 builder.Services.AddScoped<IViewRenderService, ViewRenderService>();
 
-// MVC + Localization
-builder.Services.AddControllersWithViews().AddViewLocalization();
+// MVC
+builder.Services.AddControllersWithViews();
 
 // Database
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -75,11 +49,6 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-// Localization middleware
-var localizationOptions = app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value;
-app.UseRequestLocalization(localizationOptions);
-
-// Default middleware
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");

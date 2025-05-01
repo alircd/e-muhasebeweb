@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EMuhasebeWeb")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a209c3d0dd016a5c0c281c55b7196932962c9177")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+444f65aec57a15ca543adc3d890faf6a30105b68")]
 [assembly: System.Reflection.AssemblyProductAttribute("EMuhasebeWeb")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EMuhasebeWeb")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
