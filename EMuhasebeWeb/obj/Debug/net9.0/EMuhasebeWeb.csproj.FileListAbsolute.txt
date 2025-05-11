@@ -333,10 +333,10 @@ C:\Users\alirc\Desktop\e-muhasebeweb\EMuhasebeWeb\obj\Debug\net9.0\staticwebasse
 C:\Users\alirc\Desktop\e-muhasebeweb\EMuhasebeWeb\obj\Debug\net9.0\staticwebassets\msbuild.buildMultiTargeting.EMuhasebeWeb.props
 C:\Users\alirc\Desktop\e-muhasebeweb\EMuhasebeWeb\obj\Debug\net9.0\staticwebassets\msbuild.buildTransitive.EMuhasebeWeb.props
 C:\Users\alirc\Desktop\e-muhasebeweb\EMuhasebeWeb\obj\Debug\net9.0\staticwebassets.pack.json
-C:\Users\alirc\Desktop\e-muhasebeweb\EMuhasebeWeb\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 C:\Users\alirc\Desktop\e-muhasebeweb\EMuhasebeWeb\obj\Debug\net9.0\EMuhaseb.72941062.Up2Date
 C:\Users\alirc\Desktop\e-muhasebeweb\EMuhasebeWeb\obj\Debug\net9.0\EMuhasebeWeb.dll
 C:\Users\alirc\Desktop\e-muhasebeweb\EMuhasebeWeb\obj\Debug\net9.0\refint\EMuhasebeWeb.dll
 C:\Users\alirc\Desktop\e-muhasebeweb\EMuhasebeWeb\obj\Debug\net9.0\EMuhasebeWeb.pdb
 C:\Users\alirc\Desktop\e-muhasebeweb\EMuhasebeWeb\obj\Debug\net9.0\EMuhasebeWeb.genruntimeconfig.cache
 C:\Users\alirc\Desktop\e-muhasebeweb\EMuhasebeWeb\obj\Debug\net9.0\ref\EMuhasebeWeb.dll
+C:\Users\alirc\Desktop\e-muhasebeweb\EMuhasebeWeb\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
