@@ -26,31 +26,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 var app = builder.Build();
 
-// ✅ Uygulama ilk açıldığında varsayılan admin ve rol oluştur
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-    if (!db.Roles.Any(r => r.Name == "Admin"))
-    {
-        var adminRole = new Role { Name = "Admin" };
-        db.Roles.Add(adminRole);
-        db.SaveChanges();
-    }
-
-    if (!db.Users.Any(u => u.Email == "admin@example.com"))
-    {
-        var adminUser = new User
-        {
-            FullName = "System Admin",
-            Email = "admin@example.com",
-            Password = PasswordHasher.Hash("1234"),
-            RoleID = db.Roles.First(r => r.Name == "Admin").RoleID
-        };
-        db.Users.Add(adminUser);
-        db.SaveChanges();
-    }
-}
 
 // ✅ Middleware sıralaması
 if (!app.Environment.IsDevelopment())
