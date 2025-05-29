@@ -72,6 +72,7 @@
                 <hr class="text-light" />
 
                 @if (HttpContextAccessor.HttpContext?.Session.GetString("Rol") == "Admin")
+              
                 {
                     <a asp-controller="Dashboard" asp-action="Index">📊 Dashboard</a>
                     <a asp-controller="Customer" asp-action="Index">👥 Customers</a>
